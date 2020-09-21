@@ -6,22 +6,28 @@ public class Player : MonoBehaviour
 {
 
     public GameObject path;
-    public float moveSpeed;
+    public float playerSpeed, cameraSpeed;
     public Camera faceCamera, sideCamera;
 
     private Vector3[] pathPositions;
     private Vector3 currentPosition, nextPosition;
     private int currentPositionIndex;
     private float timer;
+    private bool cameraShouldMove = false;
+    private int side;
+    private Vector3 initialCameraPosition;
+    private Quaternion initialCameraRotation;
 
     // Start is called before the first frame update
     void Start()
     {
+        initialCameraPosition = faceCamera.transform.localPosition;
+        initialCameraRotation = faceCamera.transform.rotation;
+        Debug.Log(initialCameraPosition);
         pathPositions = new Vector3[path.GetComponent<LineRenderer>().positionCount];
         path.GetComponent<LineRenderer>().GetPositions(pathPositions);
         Debug.Log(pathPositions[0]);
         GetNextPosition();
-        //this.transform.position = pathPositions[0];
     }
 
     void GetNextPosition()
@@ -38,15 +44,18 @@ public class Player : MonoBehaviour
         {
             Move();
         }
-        
+        if (cameraShouldMove)
+        {
+            MoveCamera(side);
+        }
+
     }
 
     void Move()
     {
-        timer += Time.deltaTime * moveSpeed;
+        timer += Time.deltaTime * playerSpeed;
         if (this.transform.position != nextPosition)
         {
-            //this.transform.position = Vector3.Lerp(currentPosition, nextPosition, timer);
             this.transform.position = Vector3.MoveTowards(currentPosition, nextPosition, timer);
         }
         else
@@ -71,17 +80,42 @@ public class Player : MonoBehaviour
         }
         else if (other.tag == "CameraChange")
         {
-            if(faceCamera.gameObject.activeSelf == true)
+
+            if (faceCamera.transform.position == sideCamera.transform.position)
             {
-                faceCamera.gameObject.SetActive(false);
-                sideCamera.gameObject.SetActive(true);
+                side = 0;
             }
             else
             {
-                sideCamera.gameObject.SetActive(false);
-                faceCamera.gameObject.SetActive(true);
+                side = 1;
             }
+
+            cameraShouldMove = true;            
+
+        }
+    }
+
+    private void MoveCamera(int side)
+    {
+        
+        if (side == 1)
+        {
+            faceCamera.transform.position = Vector3.Lerp(faceCamera.transform.position, sideCamera.transform.position, Time.deltaTime * cameraSpeed);
+            faceCamera.transform.rotation = Quaternion.Lerp(faceCamera.transform.rotation, sideCamera.transform.rotation, Time.deltaTime * cameraSpeed);
+            Debug.Log("Aller");
+        }
+        else
+        {
+            faceCamera.transform.localPosition = Vector3.Lerp(faceCamera.transform.localPosition, initialCameraPosition, Time.deltaTime * cameraSpeed);
+            faceCamera.transform.rotation = Quaternion.Lerp(faceCamera.transform.rotation, initialCameraRotation, Time.deltaTime * cameraSpeed);
+            Debug.Log("Retour");
         }
 
+        if (faceCamera.transform.position == sideCamera.transform.position)
+        {
+            cameraShouldMove = false;
+            Debug.Log("Camera has reached its destination ");
+        }
+        
     }
 }

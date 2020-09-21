@@ -912,7 +912,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path: {fileID: 1081341510}
-  moveSpeed: 1.5
+  playerSpeed: 3
+  cameraSpeed: 6
   faceCamera: {fileID: 963194227}
   sideCamera: {fileID: 2138778690}
 --- !u!65 &625131984
