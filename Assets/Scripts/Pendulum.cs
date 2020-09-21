@@ -9,7 +9,7 @@ public class Pendulum : MonoBehaviour
 
     public float pendulumAngle = 90.0f;
     public float pendulumSpeed = 2.0f;
-    public float startTime = 0.0f;
+    public float initialTimer =0.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,14 +25,10 @@ public class Pendulum : MonoBehaviour
 
     private void FixedUpdate()
     {
-        startTime += Time.deltaTime;
-        transform.rotation = Quaternion.Lerp(start, end, (Mathf.Sin(startTime * pendulumSpeed + Mathf.PI / 2) + 1.0f) / 2.0f);
+        initialTimer += Time.deltaTime;
+        transform.rotation = Quaternion.Lerp(start, end, (Mathf.Sin(initialTimer * pendulumSpeed + Mathf.PI / 2) + 1.0f) / 2.0f);
     }
 
-    void ResetTimer()
-    {
-        startTime = 0.0f;
-    }
 
     Quaternion PendulumRotation(float angle)
     {

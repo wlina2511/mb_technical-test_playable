@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 
     public GameObject path;
     public float moveSpeed;
+    public Camera faceCamera, sideCamera;
 
     private Vector3[] pathPositions;
     private Vector3 currentPosition, nextPosition;
@@ -64,7 +65,23 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("perdu");
+        if (other.tag == "Obstacle")
+        {
+            Debug.Log("perdu");
+        }
+        else if (other.tag == "CameraChange")
+        {
+            if(faceCamera.gameObject.activeSelf == true)
+            {
+                faceCamera.gameObject.SetActive(false);
+                sideCamera.gameObject.SetActive(true);
+            }
+            else
+            {
+                sideCamera.gameObject.SetActive(false);
+                faceCamera.gameObject.SetActive(true);
+            }
+        }
 
     }
 }
