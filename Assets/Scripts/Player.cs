@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     private Vector3[] pathPositions;
     private Vector3 currentPosition, nextPosition;
-    private int currentPositionIndex;
+    private int currentPositionIndex = 0;
     private float timer;
     private bool cameraShouldMove = false;
     private int side;
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && GameController.Instance.gameHasStarted == true)
         {
             Move();
         }
@@ -68,6 +68,8 @@ public class Player : MonoBehaviour
             else
             {
                 Debug.Log("Gagné !");
+                GameController.Instance.EndGame(1);
+
             }
         }
     }
@@ -77,6 +79,7 @@ public class Player : MonoBehaviour
         if (other.tag == "Obstacle")
         {
             Debug.Log("perdu");
+            GameController.Instance.EndGame(0);
         }
         else if (other.tag == "CameraChange")
         {
@@ -118,4 +121,12 @@ public class Player : MonoBehaviour
         }
         
     }
+
+    public void ResetPlayer()
+    {
+        currentPositionIndex = 0;
+        this.transform.position = pathPositions[0];
+        GetNextPosition();
+    }
+
 }
