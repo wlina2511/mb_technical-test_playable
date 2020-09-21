@@ -8,10 +8,15 @@ public class GameController : MonoBehaviour
 
 
     public static GameController Instance;
-    public TextMeshProUGUI endTitle;
+    public TextMeshProUGUI endTitle, gameTimerText, endTimerText;
     public Canvas mainMenuCanvas, endCanvas;
     public GameObject player;
+
+    public GameObject endTimer;
     public bool gameHasStarted = false;
+
+
+    private float gameTimer = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +27,11 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameHasStarted)
+        {
+            gameTimer += Time.deltaTime;
+            gameTimerText.text = gameTimer.ToString("F1");
+        }
         
     }
 
@@ -48,6 +58,9 @@ public class GameController : MonoBehaviour
         {
             endTitle.text = "VICTORY";
             endTitle.color = Color.green;
+            endTimer.gameObject.SetActive(true);
+            endTimerText.text = gameTimerText.text;
+            
         }
         else
         {
@@ -59,6 +72,8 @@ public class GameController : MonoBehaviour
 
     public void ResetScene()
     {
+        gameTimer = 0;
         player.GetComponent<Player>().ResetPlayer();
+        player.GetComponent<Player>().ResetCamera();
     }
 }

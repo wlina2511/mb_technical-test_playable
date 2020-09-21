@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     {
         initialCameraPosition = faceCamera.transform.localPosition;
         initialCameraRotation = faceCamera.transform.rotation;
+
+        Camera secondaryCamera = faceCamera;
+
         Debug.Log(initialCameraPosition);
         pathPositions = new Vector3[path.GetComponent<LineRenderer>().positionCount];
         path.GetComponent<LineRenderer>().GetPositions(pathPositions);
@@ -34,7 +37,10 @@ public class Player : MonoBehaviour
     {
         timer = 0;
         currentPosition = this.transform.position;
-        nextPosition = pathPositions[currentPositionIndex + 1];
+        if ((currentPositionIndex + 1) < pathPositions.Length)
+        {
+            nextPosition = pathPositions[currentPositionIndex + 1];
+        }
     }
     // Update is called once per frame
     void Update()
@@ -127,6 +133,13 @@ public class Player : MonoBehaviour
         currentPositionIndex = 0;
         this.transform.position = pathPositions[0];
         GetNextPosition();
+    }
+
+    public void ResetCamera()
+    {
+        cameraShouldMove = false;
+        faceCamera.transform.localPosition = initialCameraPosition;
+        faceCamera.transform.rotation = initialCameraRotation;
     }
 
 }
