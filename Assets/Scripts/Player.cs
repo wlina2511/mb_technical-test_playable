@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
         {
             if (currentPositionIndex < pathPositions.Length)
             {
+                GameController.Instance.progressionSlider.value += 1;
                 currentPositionIndex++;
                 GetNextPosition();
             }
@@ -84,7 +85,6 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Obstacle")
         {
-            Debug.Log("perdu");
             GameController.Instance.EndGame(0);
         }
         else if (other.tag == "CameraChange")

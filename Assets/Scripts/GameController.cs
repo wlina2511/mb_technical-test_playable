@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class GameController : MonoBehaviour
@@ -9,8 +10,9 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance;
     public TextMeshProUGUI endTitle, gameTimerText, endTimerText;
-    public Canvas mainMenuCanvas, endCanvas;
-    public GameObject player;
+    public Canvas mainMenuCanvas, gameCanvas, endCanvas;
+    public GameObject player, path;
+    public Slider progressionSlider;
 
     public GameObject endTimer;
     public bool gameHasStarted = false;
@@ -22,6 +24,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         Instance = this;
+        progressionSlider.minValue = 0;
+        progressionSlider.maxValue = path.GetComponent<LineRenderer>().positionCount;
     }
 
     // Update is called once per frame
@@ -38,6 +42,7 @@ public class GameController : MonoBehaviour
     public void ToGameButton()
     {
         mainMenuCanvas.gameObject.SetActive(false);
+        gameCanvas.gameObject.SetActive(true);
         gameHasStarted = true;
     }
 
@@ -73,6 +78,7 @@ public class GameController : MonoBehaviour
     public void ResetScene()
     {
         gameTimer = 0;
+        progressionSlider.value = progressionSlider.minValue;
         player.GetComponent<Player>().ResetPlayer();
         player.GetComponent<Player>().ResetCamera();
     }
