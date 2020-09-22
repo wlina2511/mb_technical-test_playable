@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class TurtleObstacles : MonoBehaviour
 {
+    [Header ("Obstacle Parameters")]
     public float backAndForthSpeed = 1.0f;
+
+    // After how much time the obstacles will start moving
+    // Used to desynchronise instances of the same obstacle
     public float initialTimer;
 
+    // Back and forth points
     Vector3 pointA;
     Vector3 pointB;
-    float delay;
-    float staticDelay;
+
+    float internalDelay = 0;    
+    float pingPongTime;
 
     // Start is called before the first frame update
     void Start()
@@ -22,12 +28,16 @@ public class TurtleObstacles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        delay += Time.deltaTime;
-        if (delay > initialTimer)
+        // Wait before starting to move
+        if (internalDelay > initialTimer)
         {
-            staticDelay += Time.deltaTime;
-            float time = Mathf.PingPong(staticDelay * backAndForthSpeed, 1);
+            pingPongTime += Time.deltaTime;
+            float time = Mathf.PingPong(pingPongTime * backAndForthSpeed, 1);
             transform.localPosition = Vector3.Lerp(pointA, pointB, time);
-        } 
+        }
+        else
+        {
+            internalDelay += Time.deltaTime;
+        }
     }
 }

@@ -4,22 +4,21 @@ using UnityEngine;
 
 public class CubeObstacles : MonoBehaviour
 {
+    [Header("Obstacle Parameters")]
+    // Those two variables are strongly tied
     public float delayBeforeFalling;
     public float cubeAscendingSpeed;
-    //Vector3 startingPosition;
+
 
     float internalDelay = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
     {
-        if (internalDelay > delayBeforeFalling && this.GetComponent<Rigidbody>().useGravity == false)
+        // If the delay is over, drop the cube using gravity
+        if (internalDelay > delayBeforeFalling && GetComponent<Rigidbody>().useGravity == false)
         {
-            this.GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Rigidbody>().useGravity = true;
             internalDelay = 0.0f;
         }
         else
@@ -31,11 +30,11 @@ public class CubeObstacles : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        this.GetComponent<Rigidbody>().useGravity = false;
-        this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        this.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, cubeAscendingSpeed, 0.0f));
+        // When the cube touches the ground after dropping, a force is applied to the rigidBody and gravity is disabled 
+        GetComponent<Rigidbody>().useGravity = false;
 
-
-
+        // Making sure the speed of the rigidBody is null when launching up, in case some exterior forces are applied (it shouldn't happen but we're never sure)
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, cubeAscendingSpeed, 0.0f));
     }
 }

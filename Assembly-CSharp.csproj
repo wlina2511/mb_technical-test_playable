@@ -65,7 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Obstacles Scripts\CubeObstacles.cs" />
-    <Compile Include="Assets\Scripts\Obstacles Scripts\Pendulum.cs" />
+    <Compile Include="Assets\Scripts\Obstacles Scripts\PendulumObstacle.cs" />
     <Compile Include="Assets\Scripts\Obstacles Scripts\RotatingObstacles.cs" />
     <Compile Include="Assets\Scripts\Obstacles Scripts\TurtleObstacles.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
