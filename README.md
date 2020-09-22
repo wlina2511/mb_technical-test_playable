@@ -7,7 +7,7 @@ I have spent a total of around **7** hours on Unity, split as following :
 - Around **1** setting out the background.
 - Around **1** coding the player and camera movements.
 - Around **3** implementing the obstacles, the timer and the slider. 
-- The last hour was me messing around and trying things I did not leave in the final game
+- The last hour was me messing around and trying things that did not make it to the final game.
 
 ###  Architectural and technical choices
 Iused Unity 2019.1.5f1 as requested, and chose to have my architecture as follows : 
@@ -17,22 +17,22 @@ Iused Unity 2019.1.5f1 as requested, and chose to have my architecture as follow
 - The **Path** GameObject is where the LineRenderer is set, and will be the points that the player will follow.
 - The **Player**, **Background** and **Obstacles** GameObject speak for themselves.
 - And lastly, the **UI** GameObject contains the three **Canvases** we are using to use the application :
-    - **MainMenu** is the Canvas where the Leaderboard is displayed. This screen contains only one button, used to launch the game
-    - **GameCanvas** is the Canvas shown In Game, where the timer and the slider are displayed:
-    - **EndCanvas** is the Canvas displayed at the end, with the replay button and the player's score
+    - **MainMenu** is the Canvas where the Leaderboard is displayed. This screen contains only one button, used to launch the game.
+    - **GameCanvas** is the Canvas shown In Game, where the timer and the slider are displayed.
+    - **EndCanvas** is the Canvas displayed at the end, with the replay button and the player's score.
 
 ### What was hard
-I had to go back to my highschool notes to do a pendulum but otherwisen the rest of the development went smooth.
-The biggest setback was the camera movements, and in certain edge cases (which I can't seem to understand), the camera will have unplanned behaviours    
+I had to go back to my highschool notes to do a pendulum but otherwise the rest of the development went smooth.
+The biggest setback was the camera movements, and in certain edge cases (which I can't seem to understand), the camera will have unplanned behaviours.    
 
 ### What I would do to push the project a step forward
-Some design might go a long way. Player model and the menu design are greatly diminished in this demo.
+Some design might go a long way. Player model and the menu design are greatly diminished in this demo. :(
 
 ### Project startup
 
 ##### Unity Version
 
-The version I used for this project was, as I said in the intro, the 2019.1.5f1 .
+The version I used for this project was as I said in the intro the 2019.1.5f1 .
 
 ##### Step by step guide
 
