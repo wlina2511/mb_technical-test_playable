@@ -37,6 +37,7 @@ The version I used for this project was as I said in the intro the 2019.1.5f1 .
 ##### Step by step guide
 
 Open **Unity** and the project folder. Click **Play** and try to do the best possible score ! 
+To play, you only need to hold left click and your character will move, if you let it go the character will stop.
 Have fun !
 
 ### Final thoughts and bibliography
